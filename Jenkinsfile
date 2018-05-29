@@ -27,6 +27,7 @@ pipeline {
       }
     }
     stage('Deploy - UAT') {
+	  when { expression { return BRANCH_NAME != 'master' && BRANCH_NAME != 'dev' } }
 	  steps {
 		echo 'Deploying UAT'
 	  }
