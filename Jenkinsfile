@@ -26,21 +26,9 @@ pipeline {
         echo 'Deploying DEV'
       }
     }
-	stage('Sanity check - DEV') {
-	  when { branch 'dev' }
-	  steps {
-		input "Does the DEV environment look ok?"
-	  }
-    }
     stage('Deploy - UAT') {
 	  steps {
 		echo 'Deploying UAT'
-	  }
-    }
-	stage('Sanity check - UAT') {
-	  when { branch 'master' }
-	  steps {
-		input "Does the UAT environment look ok?"
 	  }
     }
 	stage('Deploy - PROD') {
