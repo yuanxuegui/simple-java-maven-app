@@ -1,5 +1,8 @@
 pipeline {
   agent any
+  environment {
+    JAVA_HOME = '/usr/local/java/jdk1.8.0_131'
+  }
   stages {
     stage('Build') {
       steps {
@@ -13,55 +16,56 @@ pipeline {
       }
       post {
         always {
-            junit 'target/surefire-reports/*.xml'
+          junit 'target/surefire-reports/*.xml'
         }
       }
     }
     stage('Deploy - DEV') {
+	  when { branch 'dev' }
       steps {
         echo 'Deploying DEV'
       }
     }
 	stage('Sanity check - DEV') {
-		steps {
-			input "Does the DEV environment look ok?"
-		}
+	  when { branch 'dev' }
+	  steps {
+		input "Does the DEV environment look ok?"
+	  }
     }
     stage('Deploy - UAT') {
-        steps {
-            echo 'Deploying UAT'
-        }
+	  steps {
+		echo 'Deploying UAT'
+	  }
     }
 	stage('Sanity check - UAT') {
-		steps {
-			input "Does the UAT environment look ok?"
-		}
+	  when { branch 'master' }
+	  steps {
+		input "Does the UAT environment look ok?"
+	  }
     }
 	stage('Deploy - PROD') {
-        steps {
-            echo 'Deploying PROD'
-        }
+	  when { branch 'master' }
+      steps {
+        echo 'Deploying PROD'
+      }
     }
   }
   post {        
-        always {            
-            echo 'One way or another, I have finished'            
-            deleteDir() /* clean up our workspace */        
-        }        
-        success {            
-            echo 'I succeeeded!'        
-        }        
-        unstable {            
-            echo 'I am unstable :/'        
-        }        
-        failure {            
-            echo 'I failed :('        
-        }        
-        changed {            
-            echo 'Things were different before...'        
-        }    
-  }
-  environment {
-    JAVA_HOME = '/usr/local/java/jdk1.8.0_131'
+    always {            
+        echo 'One way or another, I have finished'            
+        deleteDir() /* clean up our workspace */        
+    }        
+    success {            
+        echo 'I succeeeded!'        
+    }        
+    unstable {            
+        echo 'I am unstable :/'        
+    }        
+    failure {            
+        echo 'I failed :('        
+    }        
+    changed {            
+        echo 'Things were different before...'        
+    }    
   }
 }
