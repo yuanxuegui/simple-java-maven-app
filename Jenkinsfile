@@ -7,7 +7,7 @@ pipeline {
       }
     }
     stage('Test') {
-      when { branch 'master' }
+      when { branch 'dev' }
       steps {
         sh 'mvn test'
       }
