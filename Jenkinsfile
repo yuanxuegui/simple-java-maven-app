@@ -17,21 +17,30 @@ pipeline {
         }
       }
     }
-    stage('Deploy') {
-        when {
-            anyOf {
-                environment name: 'DEPLOY_TO', value: 'prod'
-                environment name: 'DEPLOY_TO', value: 'uat'
-            }
-        }
-        steps {
-            echo 'Deploying'
-        }
-     }
-    stage('Deliver') {
+    stage('Deploy - DEV') {
       steps {
-        sh './jenkins/scripts/deliver.sh'
+        echo 'Deploying DEV'
       }
+    }
+	stage('Sanity check - DEV') {
+		steps {
+			input "Does the DEV environment look ok?"
+		}
+    }
+    stage('Deploy - UAT') {
+        steps {
+            echo 'Deploying UAT'
+        }
+    }
+	stage('Sanity check - UAT') {
+		steps {
+			input "Does the UAT environment look ok?"
+		}
+    }
+	stage('Deploy - PROD') {
+        steps {
+            echo 'Deploying PROD'
+        }
     }
   }
   post {        
