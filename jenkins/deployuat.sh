@@ -1,4 +1,4 @@
-#!/bin/bash -l
+#!/usr/bin/env bash
 
 echo 'The following Maven command installs your Maven-built Java application'
 echo 'into the local Maven repository, which will ultimately be stored in'
@@ -24,4 +24,4 @@ echo 'The following command runs and outputs the execution of your Java'
 echo 'application (which Jenkins built using Maven) to the Jenkins UI.'
 set -x
 scp target/${NAME}-${VERSION}.jar root@47.93.134.246:/usr/local/jars
-ssh root@47.93.134.246 "cd /usr/local/jars; java -jar target/${NAME}-${VERSION}.jar"
+ssh root@47.93.134.246 "cd /usr/local/jars; source /etc/profile; java -jar target/${NAME}-${VERSION}.jar"
