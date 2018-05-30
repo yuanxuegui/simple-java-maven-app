@@ -37,8 +37,7 @@ pipeline {
 
       }
       steps {
-        sh '''ls -l ./jenkins/deployuat.sh
-./jenkins/deployuat.sh'''
+        sh './jenkins/deployuat.sh'
       }
     }
     stage('Deploy - PROD') {
