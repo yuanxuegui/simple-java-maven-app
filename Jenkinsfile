@@ -37,7 +37,7 @@ pipeline {
 
       }
       steps {
-        sh '''ll ./jenkins/deployuat.sh
+        sh '''ls -l ./jenkins/deployuat.sh
 ./jenkins/deployuat.sh'''
       }
     }
