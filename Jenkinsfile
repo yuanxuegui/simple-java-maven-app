@@ -23,7 +23,7 @@ pipeline {
     stage('Deploy - DEV') {
 	  when { branch 'dev' }
       steps {
-        sh './jenkins/deplopdev.sh'
+        sh './jenkins/deploydev.sh'
       }
     }
     stage('Deploy - UAT') {
