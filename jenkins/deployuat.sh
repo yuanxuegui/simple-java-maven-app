@@ -2,7 +2,7 @@
 
 set -x
 
-mvn clean install
+mvn jar:jar install:install
 NAME=`mvn help:evaluate -Dexpression=project.name | grep "^[^\[]"`
 VERSION=`mvn help:evaluate -Dexpression=project.version | grep "^[^\[]"`
 scp target/${NAME}-${VERSION}.jar root@47.93.134.246:/usr/local/jars
