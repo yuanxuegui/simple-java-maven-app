@@ -29,13 +29,13 @@ pipeline {
     stage('Deploy - UAT') {
 	  when { expression { return BRANCH_NAME =~ 'uat_.*' } }
 	  steps {
-		echo 'Deploying UAT'
+		sh './jenkins/deployuat.sh'
 	  }
     }
 	stage('Deploy - PROD') {
 	  when { branch 'master' }
       steps {
-        echo 'Deploying PROD'
+        sh './jenkins/deployprod.sh'
       }
     }
   }
